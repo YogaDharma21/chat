@@ -13,7 +13,7 @@ Set your `PORT`
 Clone the project
 
 ```bash
-git clone https://github.com/Rizzlle/Typepress.git
+git clone https://github.com/YogaDharma21/chat.git
 ```
 
 Install dependencies
@@ -28,7 +28,7 @@ Start the server
 npm run dev
 ```
 
-or 
+or
 
 Build for production
 
