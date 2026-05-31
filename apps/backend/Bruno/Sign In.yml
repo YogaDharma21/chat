@@ -7,14 +7,12 @@ http:
   method: POST
   url: http://localhost:3000/api/auth/sign-in
   body:
-    type: multipart-form
-    data:
-      - name: email
-        type: text
-        value: test@test.test
-      - name: password
-        type: text
-        value: testajasihinia
+    type: json
+    data: |-
+      {
+        "email": "test@test.test",
+        "password" : "testajasihini"
+      }
   auth: inherit
 
 settings:
@@ -22,3 +20,50 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: Sign In Response
+    request:
+      url: http://localhost:3000/api/auth/sign-in
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "email": "test@test.test",
+            "password" : "testajasihini"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "429"
+        - name: etag
+          value: W/"1ad-7MvmzQZ4hiDW396IY1W5vm3bd6Q"
+        - name: date
+          value: Sun, 31 May 2026 07:42:29 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "User login successfully",
+            "data": {
+              "id": "d09adbcd-c122-49b5-b621-760a3f8a29ff",
+              "name": "Test",
+              "email": "test@test.test",
+              "photo": "http://localhost:3000/assets/uploads/photo/photo-1780208130485-615907515.png",
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQwOWFkYmNkLWMxMjItNDliNS1iNjIxLTc2MGEzZjhhMjlmZiIsImlhdCI6MTc4MDIxMzM0OSwiZXhwIjoxNzgwMjk5NzQ5fQ.NDAePnFgZEBGvcVSzjr9ZFO9x5aCrx5LZolmNbuGLVY"
+            }
+          }
