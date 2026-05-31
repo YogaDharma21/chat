@@ -10,13 +10,13 @@ export const isEmailExist = async (email: string) => {
     });
 };
 
-export const findRole = async (role:RoleType)=>{
+export const findRole = async (role: RoleType) => {
     return await prisma.role.findFirstOrThrow({
-        where:{
-            role:role
-        }
-    })
-}
+        where: {
+            role: role,
+        },
+    });
+};
 
 export const createUser = async (data: SignUpValues, photo: string) => {
     const role = await findRole("USER");
@@ -26,7 +26,15 @@ export const createUser = async (data: SignUpValues, photo: string) => {
             password: data.password,
             name: data.name,
             role_id: role.id,
-            photo
+            photo,
+        },
+    });
+};
+
+export const findUserByEmail = async (email: string) => {
+    return await prisma.user.findFirstOrThrow({
+        where: {
+            email: email,
         },
     });
 };
