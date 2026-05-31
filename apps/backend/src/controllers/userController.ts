@@ -45,7 +45,6 @@ export const signIn = async (
     res: Response,
     next: NextFunction,
 ) => {
-    console.log(req.body);
     try {
         const parse = signInSchema.safeParse(req.body);
         if (!parse.success) {
