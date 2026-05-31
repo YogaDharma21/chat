@@ -1,8 +1,9 @@
-import Multer from "multer";
+import "dotenv/config";
 import { SignUpValues } from "../utils/schema/user";
 import * as userRepositories from "../repositories/userRepositories";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 export const signUp = async (data: SignUpValues, file: Express.Multer.File) => {
     const isEmailExist = await userRepositories.isEmailExist(data.email);
     if (isEmailExist > 1) {
