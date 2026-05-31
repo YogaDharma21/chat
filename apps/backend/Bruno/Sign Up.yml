@@ -1,0 +1,31 @@
+info:
+  name: Sign Up
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/api/auth/sign-up
+  body:
+    type: multipart-form
+    data:
+      - name: photo
+        type: file
+        value:
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-05-30 184244.png
+      - name: name
+        type: text
+        value: Test
+      - name: email
+        type: text
+        value: test@test.test
+      - name: password
+        type: text
+        value: testajasihini
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
