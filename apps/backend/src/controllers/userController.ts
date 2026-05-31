@@ -31,5 +31,10 @@ export const signUp = async (
             message: "User created successfully",
             data: newUser,
         });
-    } catch (error) {}
+    } catch (error) {
+        if (req.file) {
+            fs.unlinkSync(req.file.path);
+        }
+        next(error);
+    }
 };
