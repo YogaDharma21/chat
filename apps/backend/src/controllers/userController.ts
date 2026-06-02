@@ -68,3 +68,31 @@ export const signIn = async (
         next(error);
     }
 };
+
+export const getEmailReset = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const parse = signInSchema.pick({ email: true }).safeParse(req.body);
+        if (!parse.success) {
+            const errorMessage = parse.error.issues.map(
+                (err) => `${err.path} - ${err.message}`,
+            );
+            return res.status(400).json({
+                success: false,
+                message: "Validation Error",
+                detail: errorMessage,
+            });
+        }
+
+        await userService.getEmailReset(parse.data.email);
+        return res.status(201).json({
+            success: true,
+            message: "Reset email sent successfully",
+        });
+    } catch (error) {
+        next(error);
+    }
+};
