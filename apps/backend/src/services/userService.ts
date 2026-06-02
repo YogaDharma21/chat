@@ -3,6 +3,7 @@ import { SignInValues, SignUpValues } from "../utils/schema/user";
 import * as userRepositories from "../repositories/userRepositories";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import transporter from "../utils/mailtrap";
 
 export const signUp = async (data: SignUpValues, file: Express.Multer.File) => {
     const isEmailExist = await userRepositories.isEmailExist(data.email);
@@ -49,4 +50,15 @@ export const signIn = async (data: SignInValues) => {
         photo: user.photo_url,
         token,
     };
+};
+
+export const getEmailReset = async (email: string) => {
+    const data = await userRepositories.createPasswordReset(email);
+    await transporter.sendMail({
+        from: "Chat App",
+        to: email,
+        subject: "Reset Password",
+        text: `Berikut link untuk reset password ${data.token}`,
+    });
+    return true;
 };
