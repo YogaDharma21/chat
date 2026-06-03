@@ -5,3 +5,5 @@ node_modules
 /src/generated/prisma
 
 /public/assets/uploads/
+
+/Bruno/environments/env.yml
