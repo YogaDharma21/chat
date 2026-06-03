@@ -1,86 +1,87 @@
 info:
-  name: Sign Up
-  type: http
-  seq: 1
+    name: Sign Up
+    type: http
+    seq: 1
 
 http:
-  method: POST
-  url: http://localhost:3000/api/auth/sign-up
-  body:
-    type: multipart-form
-    data:
-      - name: photo
-        type: file
-        value: &a1
-          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-05-30 184244.png
-      - name: name
-        type: text
-        value: Test
-      - name: email
-        type: text
-        value: test@test.test
-      - name: password
-        type: text
-        value: testajasihini
-  auth: inherit
-
-settings:
-  encodeUrl: true
-  timeout: 0
-  followRedirects: true
-  maxRedirects: 5
-
-examples:
-  - name: Sign Up Response
-    request:
-      url: http://localhost:3000/api/auth/sign-up
-      method: POST
-      body:
+    method: POST
+    url: "{{BACKEND_URL}}/api/auth/sign-up"
+    body:
         type: multipart-form
         data:
-          - name: photo
-            type: file
-            value: *a1
-          - name: name
-            type: text
-            value: Test
-          - name: email
-            type: text
-            value: test@test.test
-          - name: password
-            type: text
-            value: testajasihini
-    response:
-      status: 201
-      statusText: Created
-      headers:
-        - name: x-powered-by
-          value: Express
-        - name: access-control-allow-origin
-          value: "*"
-        - name: content-type
-          value: application/json; charset=utf-8
-        - name: content-length
-          value: "431"
-        - name: etag
-          value: W/"1af-98RzFt/DM9jJOkbOtp38IQXxWAw"
-        - name: date
-          value: Sun, 31 May 2026 06:15:31 GMT
-        - name: connection
-          value: keep-alive
-        - name: keep-alive
-          value: timeout=5
-      body:
-        type: json
-        data: |-
-          {
-            "success": true,
-            "message": "User created successfully",
-            "data": {
-              "id": "d09adbcd-c122-49b5-b621-760a3f8a29ff",
-              "name": "Test",
-              "email": "test@test.test",
-              "photo": "http://localhost:3000/assets/uploads/photo/photo-1780208130485-615907515.png",
-              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQwOWFkYmNkLWMxMjItNDliNS1iNjIxLTc2MGEzZjhhMjlmZiIsImlhdCI6MTc4MDIwODEzMSwiZXhwIjoxNzgwMjk0NTMxfQ.IbDEOvYp_4kWJyqzAc8pGJzBs6qLXFLQGfUN-JAISd0"
-            }
-          }
+            - name: photo
+              type: file
+              value:
+                  - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-05-30 184244.png
+            - name: name
+              type: text
+              value: Test
+            - name: email
+              type: text
+              value: test@test.test
+            - name: password
+              type: text
+              value: testajasihini
+    auth: inherit
+
+settings:
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
+
+examples:
+    - name: Sign Up Response
+      request:
+          url: http://localhost:3000/api/auth/sign-up
+          method: POST
+          body:
+              type: multipart-form
+              data:
+                  - name: photo
+                    type: file
+                    value:
+                        - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-05-30 184244.png
+                  - name: name
+                    type: text
+                    value: Test
+                  - name: email
+                    type: text
+                    value: test@test.test
+                  - name: password
+                    type: text
+                    value: testajasihini
+      response:
+          status: 201
+          statusText: Created
+          headers:
+              - name: x-powered-by
+                value: Express
+              - name: access-control-allow-origin
+                value: "*"
+              - name: content-type
+                value: application/json; charset=utf-8
+              - name: content-length
+                value: "431"
+              - name: etag
+                value: W/"1af-98RzFt/DM9jJOkbOtp38IQXxWAw"
+              - name: date
+                value: Sun, 31 May 2026 06:15:31 GMT
+              - name: connection
+                value: keep-alive
+              - name: keep-alive
+                value: timeout=5
+          body:
+              type: json
+              data: |-
+                  {
+                    "success": true,
+                    "message": "User created successfully",
+                    "data": {
+                      "id": "d09adbcd-c122-49b5-b621-760a3f8a29ff",
+                      "name": "Test",
+                      "email": "test@test.test",
+                      "photo": "http://localhost:3000/assets/uploads/photo/photo-1780208130485-615907515.png",
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQwOWFkYmNkLWMxMjItNDliNS1iNjIxLTc2MGEzZjhhMjlmZiIsImlhdCI6MTc4MDIwODEzMSwiZXhwIjoxNzgwMjk0NTMxfQ.IbDEOvYp_4kWJyqzAc8pGJzBs6qLXFLQGfUN-JAISd0"
+                    }
+                  }

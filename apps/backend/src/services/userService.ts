@@ -54,11 +54,13 @@ export const signIn = async (data: SignInValues) => {
 
 export const getEmailReset = async (email: string) => {
     const data = await userRepositories.createPasswordReset(email);
+
     await transporter.sendMail({
         from: "Chat App",
         to: email,
         subject: "Reset Password",
         text: `Berikut link untuk reset password ${data.token}`,
     });
+
     return true;
 };
