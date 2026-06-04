@@ -50,3 +50,38 @@ export const createPasswordReset = async (email: string) => {
         },
     });
 };
+
+export const findResetDataByToken = async (token: string) => {
+    return await prisma.passwordReset.findFirst({
+        where: {
+            token: token,
+        },
+        include: {
+            user: {
+                select: {
+                    email: true,
+                },
+            },
+        },
+    });
+};
+
+export const updatePassword = async (email: string, password: string) => {
+    const user = await findUserByEmail(email);
+    return await prisma.user.update({
+        where: {
+            id: user.id,
+        },
+        data: {
+            password: password,
+        },
+    });
+};
+
+export const deleteTokenResetById = async (id: string) => {
+    return await prisma.passwordReset.delete({
+        where: {
+            id: id,
+        },
+    });
+};
