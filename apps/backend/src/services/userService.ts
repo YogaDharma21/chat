@@ -1,9 +1,14 @@
 import "dotenv/config";
-import { SignInValues, SignUpValues } from "../utils/schema/user";
+import {
+    ResetPasswordValues,
+    SignInValues,
+    SignUpValues,
+} from "../utils/schema/user";
 import * as userRepositories from "../repositories/userRepositories";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import transporter from "../utils/mailtrap";
+import { error } from "node:console";
 
 export const signUp = async (data: SignUpValues, file: Express.Multer.File) => {
     const isEmailExist = await userRepositories.isEmailExist(data.email);
@@ -63,4 +68,19 @@ export const getEmailReset = async (email: string) => {
     });
 
     return true;
+};
+
+export const updatePassword = async (
+    data: ResetPasswordValues,
+    token: string,
+) => {
+    const tokenData = await userRepositories.findResetDataByToken(token);
+    if (!tokenData) {
+        throw new Error("Token Reset Invalid");
+    }
+    await userRepositories.updatePassword(
+        tokenData.user.email,
+        bcrypt.hashSync(data.password, 12),
+    );
+    await userRepositories.deleteTokenResetById(tokenData.id);
 };
