@@ -1,0 +1,125 @@
+info:
+  name: Create Paid Group
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/groups/paid"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: multipart-form
+    data:
+      - name: name
+        type: text
+        value: React JS Page
+      - name: about
+        type: text
+        value: Anggap aja deskripsi
+      - name: price
+        type: text
+        value: "20000"
+      - name: benefit
+        type: text
+        value: benefit 1
+      - name: benefit
+        type: text
+        value: benefit 2
+      - name: photo
+        type: file
+        value: &a1
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-06-07 085938.png
+      - name: assets
+        type: file
+        value: &a2
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-06-07 091801.png
+      - name: assets
+        type: file
+        value: &a3
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-06-02 112851.png
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Create Paid Group Response
+    request:
+      url: "{{BACKEND_URL}}/api/groups/paid"
+      method: POST
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+      body:
+        type: multipart-form
+        data:
+          - name: name
+            type: text
+            value: React JS Page
+          - name: about
+            type: text
+            value: Anggap aja deskripsi
+          - name: price
+            type: text
+            value: "20000"
+          - name: benefit
+            type: text
+            value: benefit 1
+          - name: benefit
+            type: text
+            value: benefit 2
+          - name: photo
+            type: file
+            value: *a1
+          - name: assets
+            type: file
+            value: *a2
+          - name: assets
+            type: file
+            value: *a3
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "359"
+        - name: etag
+          value: W/"167-Dl+D3xDFRmCz6/+bqjkXBagaz6c"
+        - name: date
+          value: Sun, 07 Jun 2026 02:31:30 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Group Created Successfully",
+            "data": {
+              "id": "165f0977-8da5-4663-9967-d3b34493018c",
+              "name": "React JS Page",
+              "photo": "photo-1780799490329-857893194.png",
+              "type": "PAID",
+              "about": "Anggap aja deskripsi",
+              "benefit": [
+                "benefit 1",
+                "benefit 2"
+              ],
+              "price": 20000,
+              "room_id": "6cc3a1ea-b46d-4acc-8018-d6a6e325289d",
+              "created_at": "2026-06-07T02:31:30.458Z"
+            }
+          }

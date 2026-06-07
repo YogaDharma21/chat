@@ -1,11 +1,26 @@
-import { groupFreeValues } from "../utils/schema/group";
+import { GroupFreeValues, GroupPaidValues } from "../utils/schema/group";
 import * as groupRepositories from "../repositories/groupRepositories";
 
 export const createFreeGroup = async (
-    data: groupFreeValues,
+    data: GroupFreeValues,
     photo: string,
     user_id: string,
 ) => {
     const group = await groupRepositories.createFreeGroup(data, photo, user_id);
+    return group;
+};
+
+export const createPaidGroup = async (
+    data: GroupPaidValues,
+    photo: string,
+    user_id: string,
+    assets?: string[],
+) => {
+    const group = await groupRepositories.createPaidGroup(
+        data,
+        photo,
+        user_id,
+        assets,
+    );
     return group;
 };
