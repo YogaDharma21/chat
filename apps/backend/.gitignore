@@ -9,4 +9,7 @@ node_modules
 /public/assets/uploads/groups/*
 !/public/assets/uploads/groups/.gitkeep
 
+/public/assets/uploads/group_assets/*
+!/public/assets/uploads/group_assets/.gitkeep
+
 /Bruno/environments/env.yml

@@ -1,11 +1,11 @@
 import prisma from "../utils/prisma";
-import { groupFreeValues } from "../utils/schema/group";
+import { GroupFreeValues, GroupPaidValues } from "../utils/schema/group";
 import * as userRepositories from "./userRepositories";
 
 export const createFreeGroup = async (
-    data: groupFreeValues,
+    data: GroupFreeValues,
     photo: string,
-    user_id: string,
+    userId: string,
 ) => {
     const owner = await userRepositories.findRole("OWNER");
     return await prisma.group.create({
@@ -17,11 +17,11 @@ export const createFreeGroup = async (
             type: "FREE",
             room: {
                 create: {
-                    created_by: user_id,
+                    created_by: userId,
                     name: data.name,
                     members: {
                         create: {
-                            user_id: user_id,
+                            user_id: userId,
                             role_id: owner.id,
                         },
                     },
@@ -30,4 +30,49 @@ export const createFreeGroup = async (
             },
         },
     });
+};
+
+export const createPaidGroup = async (
+    data: GroupPaidValues,
+    photo: string,
+    userId: string,
+    assets?: string[],
+) => {
+    const owner = await userRepositories.findRole("OWNER");
+    const group = await prisma.group.create({
+        data: {
+            photo,
+            name: data.name,
+            about: data.about,
+            price: Number.parseInt(data.price),
+            type: "PAID",
+            benefit: data.benefit,
+            room: {
+                create: {
+                    created_by: userId,
+                    name: data.name,
+                    members: {
+                        create: {
+                            user_id: userId,
+                            role_id: owner.id,
+                        },
+                    },
+                    is_group: true,
+                },
+            },
+        },
+    });
+
+    if (assets) {
+        for (const asset of assets) {
+            await prisma.groupAsset.create({
+                data: {
+                    filename: asset,
+                    group_id: group.id,
+                },
+            });
+        }
+    }
+
+    return group;
 };
