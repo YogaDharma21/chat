@@ -1,25 +1,44 @@
 import { GroupFreeValues, GroupPaidValues } from "../utils/schema/group";
 import * as groupRepositories from "../repositories/groupRepositories";
+import fs from "node:fs";
+import path from "node:path";
 
-export const createFreeGroup = async (
+export const upsertFreeGroup = async (
     data: GroupFreeValues,
-    photo: string,
-    user_id: string,
+    userId: string,
+    photo?: string,
+    groupId?: string,
 ) => {
-    const group = await groupRepositories.createFreeGroup(data, photo, user_id);
+    if (groupId && photo) {
+        const group = await groupRepositories.findGroupById(groupId);
+        const pathPhoto = path.join(
+            __dirname,
+            "../../public/assets/uploads/groups",
+            group.photo,
+        );
+        if (fs.existsSync(pathPhoto)) {
+            fs.unlinkSync(pathPhoto);
+        }
+    }
+    const group = await groupRepositories.upsertFreeGroup(
+        data,
+        userId,
+        photo,
+        groupId,
+    );
     return group;
 };
 
 export const createPaidGroup = async (
     data: GroupPaidValues,
     photo: string,
-    user_id: string,
+    userId: string,
     assets?: string[],
 ) => {
     const group = await groupRepositories.createPaidGroup(
         data,
         photo,
-        user_id,
+        userId,
         assets,
     );
     return group;

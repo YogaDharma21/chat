@@ -29,15 +29,52 @@ export const createFreeGroup = async (
             });
         }
 
-        const group = await groupService.createFreeGroup(
+        const group = await groupService.upsertFreeGroup(
             parse.data,
-            req.file.filename,
             req.user?.id ?? "",
+            req.file.filename,
         );
 
         return res.json({
             success: true,
             message: "Group Created Successfully",
+            data: group,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updateFreeGroup = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const { groupId } = req.params;
+        const parse = groupFreeSchema.safeParse(req.body);
+        if (!parse.success) {
+            const errorMessage = parse.error.issues.map(
+                (err) => `${err.path} - ${err.message}`,
+            );
+
+            return res.status(400).json({
+                success: false,
+                message: "Validation Error",
+                detail: errorMessage,
+            });
+        }
+
+        const group = await groupService.upsertFreeGroup(
+            parse.data,
+            req.user?.id ?? "",
+            req?.file?.filename,
+            groupId,
+        );
+
+        return res.json({
+            success: true,
+            message: "Group Updatted Successfully",
             data: group,
         });
     } catch (error) {
@@ -63,7 +100,7 @@ export const createPaidGroup = async (
                 detail: errorMessage,
             });
         }
-        
+
         const file = req.files as {
             photo?: Express.Multer.File[];
             assets?: Express.Multer.File[];
@@ -82,7 +119,7 @@ export const createPaidGroup = async (
                 message: "Assets are required",
             });
         }
-        const assets = file.assets.map((file)=>file.filename);
+        const assets = file.assets.map((file) => file.filename);
 
         const group = await groupService.createPaidGroup(
             parse.data,
