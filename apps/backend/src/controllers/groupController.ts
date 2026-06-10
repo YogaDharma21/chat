@@ -168,7 +168,7 @@ export const updatePaidGroup = async (
         const group = await groupService.upsertPaidGroup(
             parse.data,
             req?.user?.id ?? "",
-            file?.photo?.[0]?.filename ?? "",
+            file?.photo?.[0]?.filename,
             assets,
             groupId
         );
