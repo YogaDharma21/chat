@@ -19,7 +19,7 @@ export const upsertFreeGroup = async (
     const owner = await userRepositories.findRole("OWNER");
     return await prisma.group.upsert({
         where: {
-            id: groupId ?? "",
+            id: groupId,
         },
         create: {
             photo: photo ?? "",
