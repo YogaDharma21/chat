@@ -5,7 +5,7 @@ info:
 
 http:
   method: PUT
-  url: "{{BACKEND_URL}}/api/groups/free/2f399781f9c872-e0f9-49e9-ac3a-8c9967f6b0e9"
+  url: "{{BACKEND_URL}}/api/groups/free/3bd25688-7c4b-4195-a156-63a8db641edd"
   headers:
     - name: Authorization
       value: JWT {{JWT_TOKEN}}
@@ -18,10 +18,10 @@ http:
         disabled: true
       - name: name
         type: text
-        value: ini grup diupdate
+        value: name update
       - name: about
         type: text
-        value: update grup about
+        value: about update
   auth: inherit
 
 settings:
