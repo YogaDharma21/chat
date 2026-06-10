@@ -11,13 +11,15 @@ export const upsertFreeGroup = async (
 ) => {
     if (groupId && photo) {
         const group = await groupRepositories.findGroupById(groupId);
-        const pathPhoto = path.join(
-            __dirname,
-            "../../public/assets/uploads/groups",
-            group.photo,
-        );
-        if (fs.existsSync(pathPhoto)) {
-            fs.unlinkSync(pathPhoto);
+        if (group.photo) {
+            const pathPhoto = path.join(
+                __dirname,
+                "../../public/assets/uploads/groups",
+                group.photo,
+            );
+            if (fs.existsSync(pathPhoto)) {
+                fs.unlinkSync(pathPhoto);
+            }
         }
     }
     const group = await groupRepositories.upsertFreeGroup(
@@ -38,13 +40,15 @@ export const upsertPaidGroup = async (
 ) => {
     if (groupId && photo) {
         const group = await groupRepositories.findGroupById(groupId);
-        const pathPhoto = path.join(
-            __dirname,
-            "../../public/assets/uploads/groups",
-            group.photo,
-        );
-        if (fs.existsSync(pathPhoto)) {
-            fs.unlinkSync(pathPhoto);
+        if (group.photo) {
+            const pathPhoto = path.join(
+                __dirname,
+                "../../public/assets/uploads/groups",
+                group.photo,
+            );
+            if (fs.existsSync(pathPhoto)) {
+                fs.unlinkSync(pathPhoto);
+            }
         }
     }
     const group = await groupRepositories.upsertPaidGroup(
