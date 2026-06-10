@@ -1,0 +1,31 @@
+info:
+  name: Update Free Group
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: "{{BACKEND_URL}}/api/groups/free/2f399781f9c872-e0f9-49e9-ac3a-8c9967f6b0e9"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: multipart-form
+    data:
+      - name: photo
+        type: text
+        value: ""
+        disabled: true
+      - name: name
+        type: text
+        value: ini grup diupdate
+      - name: about
+        type: text
+        value: update grup about
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

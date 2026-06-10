@@ -38,6 +38,13 @@ groupRoutes.post(
     groupController.createFreeGroup,
 );
 
+groupRoutes.put(
+    "/groups/free/:groupId",
+    verifyToken,
+    uploadPhoto.single("photo"),
+    groupController.updateFreeGroup,
+);
+
 groupRoutes.post(
     "/groups/paid",
     verifyToken,
