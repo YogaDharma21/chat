@@ -13,9 +13,9 @@ http:
     type: multipart-form
     data:
       - name: photo
-        type: text
-        value: ""
-        disabled: true
+        type: file
+        value: &a1
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-06-06 175846.png
       - name: name
         type: text
         value: name update
@@ -29,3 +29,62 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: Update Free Group Response
+    request:
+      url: "{{BACKEND_URL}}/api/groups/free/3bd25688-7c4b-4195-a156-63a8db641edd"
+      method: PUT
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+      body:
+        type: multipart-form
+        data:
+          - name: photo
+            type: file
+            value: *a1
+          - name: name
+            type: text
+            value: name update
+          - name: about
+            type: text
+            value: about update
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "290"
+        - name: etag
+          value: W/"122-7Xswn93qPnBjFvAlLozb9I+4Nfg"
+        - name: date
+          value: Wed, 10 Jun 2026 02:22:26 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Group Updatted Successfully",
+            "data": {
+              "id": "3bd25688-7c4b-4195-a156-63a8db641edd",
+              "name": "name update",
+              "photo": "",
+              "type": "FREE",
+              "about": "about update",
+              "benefit": [],
+              "price": 0,
+              "room_id": "88c9fca1-5a71-47a8-a842-70fd7089ae99",
+              "created_at": "2026-06-10T02:16:30.442Z"
+            }
+          }
