@@ -2,6 +2,24 @@ import { NextFunction, Response } from "express";
 import { CustomRequest } from "../types/CustomRequest";
 import { groupFreeSchema, groupPaidSchema } from "../utils/schema/group";
 import * as groupService from "../services/groupService";
+import { success } from "zod";
+
+export const getDiscoverGroup = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const data = await groupService.getDiscoverGroup();
+        return res.json({
+            success: true,
+            message: "Groups Discovered Successfully",
+            data,
+        })
+    } catch (error) {
+        next(error);
+    }
+}
 
 export const createFreeGroup = async (
     req: CustomRequest,
