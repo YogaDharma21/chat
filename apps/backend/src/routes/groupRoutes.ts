@@ -33,7 +33,7 @@ const uploadPhotoPaid = multer({
 
 groupRoutes.get(
     "/groups",
-    groupController.getDiscoverGroup,
+    groupController.getDiscoverGroups,
 );
 
 groupRoutes.post(

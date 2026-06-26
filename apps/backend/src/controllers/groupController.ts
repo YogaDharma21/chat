@@ -4,22 +4,25 @@ import { groupFreeSchema, groupPaidSchema } from "../utils/schema/group";
 import * as groupService from "../services/groupService";
 import { success } from "zod";
 
-export const getDiscoverGroup = async (
+export const getDiscoverGroups = async (
     req: CustomRequest,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => {
     try {
-        const data = await groupService.getDiscoverGroup();
+        const { name } = req.query as { name?: string };
+        const data = await groupService.getDiscoverGroups(
+            (name as string) ?? "",
+        );
         return res.json({
             success: true,
             message: "Groups Discovered Successfully",
             data,
-        })
+        });
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const createFreeGroup = async (
     req: CustomRequest,
@@ -188,7 +191,7 @@ export const updatePaidGroup = async (
             req?.user?.id ?? "",
             file?.photo?.[0]?.filename,
             assets,
-            groupId
+            groupId,
         );
 
         return res.json({
