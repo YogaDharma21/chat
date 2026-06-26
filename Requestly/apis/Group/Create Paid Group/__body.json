@@ -1,0 +1,36 @@
+{
+  "$schema": "https://assets.requestly.com/local/v1.12.0/body.json",
+  "contentType": "multipart/form-data",
+  "formData": [
+    {
+      "id": 1782462160862059,
+      "key": "photo",
+      "value": [
+        {
+          "type": "reference",
+          "id": "Screenshot 2026-06-26 101239.png-1782462197472",
+          "name": "Screenshot 2026-06-26 101239.png",
+          "path": "C:\\Users\\YogaDharma\\Pictures\\Screenshots\\Screenshot 2026-06-26 101239.png",
+          "size": 78615,
+          "source": "desktop"
+        }
+      ],
+      "isEnabled": true,
+      "type": "file"
+    },
+    {
+      "id": 1782462198126060,
+      "key": "name",
+      "value": "React Free 2",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462198797061,
+      "key": "about",
+      "value": "this is a react js free group",
+      "isEnabled": true,
+      "type": "text"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://assets.requestly.com/local/v1.12.0/body.json",
+  "contentType": "multipart/form-data",
+  "formData": [
+    {
+      "id": 1782462198126060,
+      "key": "name",
+      "value": "React JS Page",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462198797061,
+      "key": "about",
+      "value": "Anggap aja deskripsi",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462276501068,
+      "key": "price",
+      "value": "20000",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462291761069,
+      "key": "benefit",
+      "value": "benefit 1",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462298333070,
+      "key": "benefit",
+      "value": "benefit 2",
+      "isEnabled": true,
+      "type": "text"
+    },
+    {
+      "id": 1782462303618071,
+      "key": "photo",
+      "value": [
+        {
+          "type": "reference",
+          "id": "Screenshot 2026-06-26 101239.png-1782462321931",
+          "name": "Screenshot 2026-06-26 101239.png",
+          "path": "C:\\Users\\YogaDharma\\Pictures\\Screenshots\\Screenshot 2026-06-26 101239.png",
+          "size": 78615,
+          "source": "desktop"
+        }
+      ],
+      "isEnabled": true,
+      "type": "file"
+    },
+    {
+      "id": 1782462308809072,
+      "key": "assets",
+      "value": [
+        {
+          "type": "reference",
+          "id": "Screenshot 2026-06-26 101239.png-1782462324745",
+          "name": "Screenshot 2026-06-26 101239.png",
+          "path": "C:\\Users\\YogaDharma\\Pictures\\Screenshots\\Screenshot 2026-06-26 101239.png",
+          "size": 78615,
+          "source": "desktop"
+        }
+      ],
+      "isEnabled": true,
+      "type": "file"
+    },
+    {
+      "id": 1782462313783073,
+      "key": "assets",
+      "value": [
+        {
+          "type": "reference",
+          "id": "Screenshot 2026-06-26 101239.png-1782462327566",
+          "name": "Screenshot 2026-06-26 101239.png",
+          "path": "C:\\Users\\YogaDharma\\Pictures\\Screenshots\\Screenshot 2026-06-26 101239.png",
+          "size": 78615,
+          "source": "desktop"
+        }
+      ],
+      "isEnabled": true,
+      "type": "file"
+    }
+  ]
+}
