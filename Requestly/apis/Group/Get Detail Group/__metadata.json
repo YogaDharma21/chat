@@ -2,9 +2,9 @@
   "$schema": "https://assets.requestly.com/local/v1.12.0/metadata.json",
   "type": "api",
   "entryType": "http",
-  "id": "7736cff6-2b85-4021-bea7-5674f4974a08",
-  "rank": "ac",
-  "url": "{{ BACKEND_URL}}/api/groups?name=update",
+  "id": "d418f73f-56b7-4556-b1a0-c301ee5d20eb",
+  "rank": "ab",
+  "url": "{{ BACKEND_URL}}/api/groups/2f3997c3-8e3d-4650-93a4-44829a4c03b1",
   "method": "GET",
   "contentType": "none"
 }

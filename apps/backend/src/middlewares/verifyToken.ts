@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { CustomRequest } from "../types/CustomRequest";
 import jwt from "jsonwebtoken";
 import * as userRepositories from "../repositories/userRepositories";
+
 export default async function verifyToken(
     req: CustomRequest,
     res: Response,

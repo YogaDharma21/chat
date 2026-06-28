@@ -3,7 +3,7 @@
   "type": "api",
   "entryType": "http",
   "id": "8c08c612-3262-490b-ae59-4e4f783e0f42",
-  "rank": "",
+  "rank": "acR",
   "url": "{{ BACKEND_URL}}/api/peoples",
   "method": "GET",
   "contentType": "none"

@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1782462091208052,
+    "key": "authorization",
+    "value": "JWT {{JWT_TOKEN}}",
+    "isEnabled": true,
+    "description": ""
+  }
+]

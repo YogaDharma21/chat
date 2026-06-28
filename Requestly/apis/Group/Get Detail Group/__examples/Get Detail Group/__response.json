@@ -1,0 +1,18 @@
+{
+  "body": "{\"success\":true,\"message\":\"Get detail group success\",\"data\":{\"id\":\"165f0977-8da5-4663-9967-d3b34493018c\",\"name\":\"React JS Page edit\",\"about\":\"Anggap aja deskripsi edit \",\"type\":\"PAID\",\"price\":30000,\"assets\":[{\"id\":\"1cd395e1-bc55-4095-b84f-ca17262df4d3\",\"filename\":\"assets-1780799490330-708300572.png\"},{\"id\":\"507c34ef-5cf5-43ad-8a71-3661a531c895\",\"filename\":\"assets-1780799490331-226429145.png\"}],\"benefit\":[\"benefit 1 edit\",\"benefit 2 edit\"],\"room\":{\"members\":[{\"user\":{\"name\":\"Test\",\"photo_url\":\"http://localhost:3000/assets/uploads/photo/photo-1780548386232-346093944.png\"}}],\"_count\":{\"members\":1}},\"photo_url\":\"http://localhost:3000/assets/uploads/groups/photo-1781251126651-634834531.png\"}}",
+  "bodyEncoding": "utf8",
+  "headers": {
+    "x-powered-by": "Express",
+    "access-control-allow-origin": "*",
+    "content-type": "application/json; charset=utf-8",
+    "content-length": "696",
+    "etag": "W/\"2b8-qQmvTUyhCSn/RFhxU3hrqUQQqI8\"",
+    "date": "Sat, 27 Jun 2026 07:00:41 GMT",
+    "connection": "keep-alive",
+    "keep-alive": "timeout=5"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "time": 1095,
+  "size": 696
+}
