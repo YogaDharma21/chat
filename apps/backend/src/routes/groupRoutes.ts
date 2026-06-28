@@ -38,6 +38,12 @@ groupRoutes.get(
 );
 
 groupRoutes.get(
+    "/own-groups",
+    verifyToken,
+    groupController.getOwnGroups,
+);
+
+groupRoutes.get(
     "/groups/:id",
     verifyToken,
     groupController.findDetailGroup,

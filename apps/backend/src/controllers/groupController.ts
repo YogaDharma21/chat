@@ -24,6 +24,24 @@ export const getDiscoverGroups = async (
     }
 };
 
+export const getOwnGroups = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const data = await groupService.getMyOwnGroup(req.user?.id ?? "");
+
+        return res.json({
+            success: true,
+            message: "Get my own groups Successfully",
+            data,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getDiscoverPeople = async (
     req: CustomRequest,
     res: Response,

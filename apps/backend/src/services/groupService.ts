@@ -5,10 +5,10 @@ import path from "node:path";
 
 export const getDiscoverGroups = async (name?: string) => {
     return await groupRepositories.getDiscoverGroups(name);
-}
+};
 
 export const getDiscoverPeoples = async (name?: string, userId?: string) => {
-	return await groupRepositories.getDiscoverPeople(name, userId);
+    return await groupRepositories.getDiscoverPeople(name, userId);
 };
 
 export const findDetailGroup = async (id: string, userId?: string) => {
@@ -71,4 +71,35 @@ export const upsertPaidGroup = async (
         groupId,
     );
     return group;
+};
+
+export const getMyOwnGroup = async (userId: string) => {
+    const groups = await groupRepositories.getMyOwnGroup(userId);
+
+    const paidGroups = groups.filter((item) => {
+        return item.type === "PAID";
+    }).length;
+
+    const freeGroups = groups.filter((item) => {
+        return item.type === "FREE";
+    }).length;
+
+    const totalMembers = await groupRepositories.getTotalMembers(
+        groups.map((item) => item.room.id),
+    );
+
+    return {
+        lists: groups.map((item) => {
+            return {
+                id: item.id,
+                photo_url: item.photo_url,
+                name: item.name,
+                type: item.type,
+                total_members:item.room._count.members
+            };
+        }),
+        paid_groups: paidGroups,
+        free_groups: freeGroups,
+        total_members: totalMembers,
+    };
 };
