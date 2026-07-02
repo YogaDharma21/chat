@@ -1,0 +1,45 @@
+info:
+  name: Update Paid Group
+  type: http
+  seq: 8
+
+http:
+  method: PUT
+  url: "{{BACKEND_URL}}/api/groups/paid"
+  headers:
+    - name: authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: multipart-form
+    data:
+      - name: name
+        type: text
+        value: React JS Page
+      - name: about
+        type: text
+        value: Anggap aja deskripsi
+      - name: price
+        type: text
+        value: "20000"
+      - name: benefit
+        type: text
+        value: benefit 1
+      - name: benefit
+        type: text
+        value: benefit 2
+      - name: photo
+        type: text
+        value: ""
+      - name: assets
+        type: text
+        value: ""
+      - name: assets
+        type: text
+        value: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { CustomRequest } from "../types/CustomRequest";
-import { groupFreeSchema, groupPaidSchema } from "../utils/schema/group";
+import { groupFreeSchema, groupPaidSchema, joinFreeGroupSchema } from "../utils/schema/group";
 import * as groupService from "../services/groupService";
 import { success } from "zod";
 
@@ -260,6 +260,39 @@ export const updatePaidGroup = async (
             message: "Group Created Successfully",
             data: group,
         });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const createMemberFreeGroup = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const parse = joinFreeGroupSchema.safeParse(req.body);
+        if (!parse.success) {
+            const errorMessage = parse.error.issues.map(
+                (err) => `${err.path} - ${err.message}`,
+            );
+
+            return res.status(400).json({
+                success: false,
+                message: "Validation Error",
+                detail: errorMessage,
+            });
+        }
+        const data = await groupService.addMemberFreeGroup(
+            parse.data.group_id,
+            req.user?.id ?? "",
+        );
+
+        return res.json({
+            success: true,
+            message: "Member Added Successfully",
+            data
+        })
     } catch (error) {
         next(error);
     }

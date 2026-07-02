@@ -1,0 +1,18 @@
+info:
+  name: Sign In
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/auth/sign-in"
+  body:
+    type: json
+    data: '{"email":"test@test.test","password":"testtesttest"}'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

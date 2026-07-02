@@ -1,0 +1,35 @@
+info:
+  name: Sign Up
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/auth/sign-up"
+  headers:
+    - name: ""
+      value: ""
+  body:
+    type: multipart-form
+    data:
+      - name: photo
+        type: file
+        value:
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-06-28 184045.png
+        contentType: image/png
+      - name: name
+        type: text
+        value: dimas
+      - name: email
+        type: text
+        value: dimas@mail.com
+      - name: password
+        type: text
+        value: dimas123
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

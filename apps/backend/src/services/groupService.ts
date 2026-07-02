@@ -95,11 +95,28 @@ export const getMyOwnGroup = async (userId: string) => {
                 photo_url: item.photo_url,
                 name: item.name,
                 type: item.type,
-                total_members:item.room._count.members
+                total_members: item.room._count.members,
             };
         }),
         paid_groups: paidGroups,
         free_groups: freeGroups,
         total_members: totalMembers,
     };
+};
+
+export const addMemberFreeGroup = async (groupId: string, userId: string) => {
+    const checkMember = await groupRepositories.getMemberById(userId, groupId);
+
+    if (checkMember) {
+        throw new Error("You are already member of this group");
+    }
+
+    const group = await groupRepositories.findGroupById(groupId);
+
+    if(group.type === "PAID"){
+        throw new Error("This group is paid");
+    }
+
+    await groupRepositories.addMemberToGroup(group.room_id, userId);
+    return true;
 };

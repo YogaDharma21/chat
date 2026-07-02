@@ -31,29 +31,13 @@ const uploadPhotoPaid = multer({
     // },
 });
 
-groupRoutes.get(
-    "/groups",
-    verifyToken,
-    groupController.getDiscoverGroups,
-);
+groupRoutes.get("/groups", verifyToken, groupController.getDiscoverGroups);
 
-groupRoutes.get(
-    "/own-groups",
-    verifyToken,
-    groupController.getOwnGroups,
-);
+groupRoutes.get("/own-groups", verifyToken, groupController.getOwnGroups);
 
-groupRoutes.get(
-    "/groups/:id",
-    verifyToken,
-    groupController.findDetailGroup,
-);
+groupRoutes.get("/groups/:id", verifyToken, groupController.findDetailGroup);
 
-groupRoutes.get(
-    "/peoples",
-    verifyToken,
-    groupController.getDiscoverPeople
-);
+groupRoutes.get("/peoples", verifyToken, groupController.getDiscoverPeople);
 
 groupRoutes.post(
     "/groups/free",
@@ -87,6 +71,12 @@ groupRoutes.put(
         { name: "assets" },
     ]),
     groupController.updatePaidGroup,
+);
+
+groupRoutes.post(
+    "/groups/join",
+    verifyToken,
+    groupController.createMemberFreeGroup,
 );
 
 export default groupRoutes;

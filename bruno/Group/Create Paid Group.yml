@@ -1,0 +1,30 @@
+info:
+  name: Create Paid Group
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/groups/free"
+  headers:
+    - name: authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: multipart-form
+    data:
+      - name: photo
+        type: text
+        value: ""
+      - name: name
+        type: text
+        value: React Free 2
+      - name: about
+        type: text
+        value: this is a react js free group
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
