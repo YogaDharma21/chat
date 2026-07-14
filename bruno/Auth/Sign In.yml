@@ -8,7 +8,11 @@ http:
   url: "{{BACKEND_URL}}/api/auth/sign-in"
   body:
     type: json
-    data: '{"email":"test@test.test","password":"testtesttest"}'
+    data: |-
+      {
+        "email": "dimas@mail.com",
+        "password": "dimas123"
+      }
   auth: inherit
 
 settings:
@@ -16,3 +20,51 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: Sign In Example
+    description: Success
+    request:
+      url: "{{BACKEND_URL}}/api/auth/sign-in"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "email": "dimas@mail.com",
+            "password": "dimas123"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "430"
+        - name: etag
+          value: W/"1ae-l8o/rre0S+XgNNwS3CJZOGyIgF0"
+        - name: date
+          value: Fri, 03 Jul 2026 13:10:19 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "User login successfully",
+            "data": {
+              "id": "b4ab4f5c-aa2f-4828-9504-25abb7df5304",
+              "name": "dimas",
+              "email": "dimas@mail.com",
+              "photo": "http://localhost:3000/assets/uploads/photo/photo-1782965172042-616595513.png",
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI0YWI0ZjVjLWFhMmYtNDgyOC05NTA0LTI1YWJiN2RmNTMwNCIsImlhdCI6MTc4MzA4NDIxOSwiZXhwIjoxNzgzMTcwNjE5fQ.7MjQm5o9jEx3wY2i4CzOGgosgxggbYjUWnIabx7vXMc"
+            }
+          }

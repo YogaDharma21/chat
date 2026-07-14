@@ -1,0 +1,71 @@
+info:
+  name: "Join Paid Group "
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/transactions"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: json
+    data: |-
+      {
+        "group_id":"165f0977-8da5-4663-9967-d3b34493018c"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Join Paid Group Example
+    description: Success
+    request:
+      url: "{{BACKEND_URL}}/api/transactions"
+      method: POST
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+      body:
+        type: json
+        data: |-
+          {
+            "group_id":"165f0977-8da5-4663-9967-d3b34493018c"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "224"
+        - name: etag
+          value: W/"e0-ZSrVKn1gggXQihunX2WHfw86MyI"
+        - name: date
+          value: Fri, 03 Jul 2026 13:12:23 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Transaction Created Successfully",
+            "data": {
+              "token": "ea5cc561-6f9c-4d70-b2a9-133f02bdf13f",
+              "redirect_url": "https://app.sandbox.midtrans.com/snap/v4/redirection/ea5cc561-6f9c-4d70-b2a9-133f02bdf13f"
+            }
+          }

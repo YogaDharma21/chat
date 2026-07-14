@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes";
 import errorHandler from "./middlewares/errorHandler";
 import groupRoutes from "./routes/groupRoutes";
+import transactionRoutes from "./routes/transactionRoutes";
 
 dotenv.config();
 
@@ -21,7 +22,8 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api", userRoutes);
 app.use("/api", groupRoutes);
- 
+app.use("/api", transactionRoutes);
+
 app.use(errorHandler);
 
 app.listen(port, () => {
