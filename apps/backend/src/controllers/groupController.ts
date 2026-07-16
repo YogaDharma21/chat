@@ -1,6 +1,10 @@
 import { NextFunction, Response } from "express";
 import { CustomRequest } from "../types/CustomRequest";
-import { groupFreeSchema, groupPaidSchema, joinFreeGroupSchema } from "../utils/schema/group";
+import {
+    groupFreeSchema,
+    groupPaidSchema,
+    joinFreeGroupSchema,
+} from "../utils/schema/group";
 import * as groupService from "../services/groupService";
 import { success } from "zod";
 
@@ -291,8 +295,28 @@ export const createMemberFreeGroup = async (
         return res.json({
             success: true,
             message: "Member Added Successfully",
-            data
-        })
+            data,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deleteAssetGroup = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const { id } = req.params;
+
+        const data = await groupService.deleteGroupAsset(id);
+
+        return res.json({
+            success: true,
+            message: "Success delete asset group",
+            data,
+        });
     } catch (error) {
         next(error);
     }

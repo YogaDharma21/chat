@@ -1,0 +1,15 @@
+info:
+  name: Delete Assets Group
+  type: http
+  seq: 11
+
+http:
+  method: DELETE
+  url: "{{BACKEND_URL}}/api/groups/assets/1cd395e1-bc55-4095-b84f-ca17262df4d3"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
