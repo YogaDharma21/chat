@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { CustomRequest } from "../types/CustomRequest";
 import { joinFreeGroupSchema } from "../utils/schema/group";
 import * as transactionService from "../services/transactionService";
+import { success } from "zod";
 
 export const createTransaction = async (
     req: CustomRequest,
@@ -29,6 +30,27 @@ export const createTransaction = async (
         return res.json({
             success: true,
             message: "Transaction Created Successfully",
+            data,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updateTransaction = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const data = await transactionService.updateTransaction(
+            req.body.order_id,
+            req.body.transaction_status,
+        );
+
+        return res.json({
+            success: true,
+            message: "Transaction Updated Successfully",
             data,
         });
     } catch (error) {

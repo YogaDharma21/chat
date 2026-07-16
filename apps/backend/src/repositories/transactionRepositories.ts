@@ -1,4 +1,4 @@
-import { Prisma } from "../generated/prisma/client";
+import { Prisma, TransactionType } from "../generated/prisma/client";
 import prisma from "../utils/prisma";
 
 export const createTransaction = async (data: Prisma.TransactionCreateInput) => {
@@ -6,3 +6,10 @@ export const createTransaction = async (data: Prisma.TransactionCreateInput) => 
         data,
     });
 };
+
+export const updateTransaction = async (id:string, type: TransactionType)=>{
+    return await prisma.transaction.update({
+        where: { id },
+        data: { type }
+    })
+}

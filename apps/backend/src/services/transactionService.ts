@@ -63,3 +63,44 @@ export const createTransaction = async (groupId: string, userId: string) => {
     const midtransJson = await midtransResponse.json();
     return midtransJson;
 };
+
+
+export const updateTransaction = async (order_id: string, status: string) => {
+	switch (status) {
+		case "capture":
+		case "settlement": {
+			const transaction = await transactionRepositories.updateTransaction(
+				order_id,
+				"SUCCESS"
+			);
+			const group = await groupRepositories.findGroupById(
+				transaction.group_id
+			);
+
+			await groupRepositories.addMemberToGroup(
+				group.room_id,
+				transaction.user_id
+			);
+
+			return {
+                transaction_id: transaction.id
+            };
+		}
+
+		case "deny":
+		case "expire":
+		case "failure": {
+			const transaction = await transactionRepositories.updateTransaction(
+				order_id,
+				"FAILED"
+			);
+			
+			return {
+                transaction_id: transaction.id
+            };
+		}
+
+		default:
+			return {};
+	}
+};
