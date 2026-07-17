@@ -1,0 +1,24 @@
+info:
+  name: Create Room Personal
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/chat/rooms"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: json
+    data: |-
+      {
+        "user_id": "7cc66c11-2a7e-4b67-84a0-f9aeac0fcec3"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
