@@ -1,5 +1,5 @@
 import prisma from "../utils/prisma";
-import * as userRepositories from './userRepositories'
+import * as userRepositories from "./userRepositories";
 
 export const createRoomPersonal = async (
     sender_id: string,
@@ -46,5 +46,55 @@ export const createRoomPersonal = async (
         },
         update: {},
     });
-    
+};
+
+export const getRooms = async (userId: string) => {
+    return await prisma.room.findMany({
+        where: {
+            members: {
+                some: {
+                    user_id: userId,
+                },
+            },
+        },
+        include: {
+            messages: {
+                select: {
+                    content: true,
+                    type: true,
+                    user: {
+                        select: {
+                            name: true,
+                            photo_url: true,
+                        },
+                    },
+                    created_at: true,
+                },
+                take: 1,
+                orderBy: {
+                    created_at: "desc",
+                },
+            },
+            members: {
+                select: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            photo_url: true,
+                        },
+                    },
+                },
+            },
+            group: {
+                select: {
+                    name: true,
+                    photo_url: true,
+                },
+            },
+        },
+        orderBy: {
+            created_at: "desc",
+        },
+    });
 };

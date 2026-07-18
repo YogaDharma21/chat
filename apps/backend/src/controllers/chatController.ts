@@ -1,35 +1,58 @@
-import { NextFunction, Response } from "express"
-import { CustomRequest } from "../types/CustomRequest"
+import { NextFunction, Response } from "express";
+import { CustomRequest } from "../types/CustomRequest";
 
-import * as chatService from '../services/chatService'
-import { createRoomPersonalSchema } from "../utils/schema/chat"
+import * as chatService from "../services/chatService";
+import { createRoomPersonalSchema } from "../utils/schema/chat";
 
 export const createRoomPersonal = async (
     req: CustomRequest,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => {
     try {
-        const parse = createRoomPersonalSchema.safeParse(req.body)
+        const parse = createRoomPersonalSchema.safeParse(req.body);
 
         if (!parse.success) {
-            const errorMessage = parse.error.issues.map((err) => `${err.path} - ${err.message}`)
+            const errorMessage = parse.error.issues.map(
+                (err) => `${err.path} - ${err.message}`,
+            );
 
             return res.status(400).json({
                 success: false,
                 message: "Validation Error",
-                detail: errorMessage
-            })
+                detail: errorMessage,
+            });
         }
 
-        const data = await chatService.createRoomPersonal(req?.user?.id ?? "", parse.data.user_id)
+        const data = await chatService.createRoomPersonal(
+            req?.user?.id ?? "",
+            parse.data.user_id,
+        );
 
         return res.json({
             success: true,
             message: "Success create room",
-            data
-        })
+            data,
+        });
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
+
+export const getRooms = async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const data = await chatService.getRecentRooms(req?.user?.id ?? "");
+
+        return res.json({
+            success: true,
+            message: "Success get rooms",
+            data,
+        });
+    } catch (error) {
+        next(error);
+    }
+};

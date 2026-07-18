@@ -4,6 +4,12 @@ import verifyToken from '../middlewares/verifyToken'
 
 const chatRoutes = express.Router()
 
+chatRoutes.get(
+    "/chat/rooms",
+    verifyToken,
+    chatController.getRooms
+)
+
 chatRoutes.post(
     "/chat/rooms",
     verifyToken,
