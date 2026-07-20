@@ -1,19 +1,17 @@
-import express from 'express'
-import * as chatController from '../controllers/chatController'
-import verifyToken from '../middlewares/verifyToken'
+import express from "express";
+import * as chatController from "../controllers/chatController";
+import verifyToken from "../middlewares/verifyToken";
 
-const chatRoutes = express.Router()
+const chatRoutes = express.Router();
+
+chatRoutes.get("/chat/rooms", verifyToken, chatController.getRooms);
 
 chatRoutes.get(
-    "/chat/rooms",
+    "/chat/rooms/:roomId",
     verifyToken,
-    chatController.getRooms
-)
+    chatController.getRoomMessages,
+);
 
-chatRoutes.post(
-    "/chat/rooms",
-    verifyToken,
-    chatController.createRoomPersonal
-)
+chatRoutes.post("/chat/rooms", verifyToken, chatController.createRoomPersonal);
 
-export default chatRoutes
+export default chatRoutes;

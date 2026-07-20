@@ -1,0 +1,76 @@
+info:
+  name: Get Room Message
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{BACKEND_URL}}/api/chat/rooms/730d7c5c-faeb-4bbc-8d48-1da685082de0"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Get Room Message Success
+    request:
+      url: "{{BACKEND_URL}}/api/chat/rooms/730d7c5c-faeb-4bbc-8d48-1da685082de0"
+      method: GET
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "487"
+        - name: etag
+          value: W/"1e7-N0wHVP/R2y/aMwhdObl3FSVHsBU"
+        - name: date
+          value: Mon, 20 Jul 2026 01:38:28 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success get rooms messages",
+            "data": {
+              "id": "730d7c5c-faeb-4bbc-8d48-1da685082de0",
+              "is_group": false,
+              "messages": [],
+              "group": null,
+              "members": [
+                {
+                  "user": {
+                    "id": "b4ab4f5c-aa2f-4828-9504-25abb7df5304",
+                    "name": "dimas",
+                    "photo_url": "http://localhost:3000/assets/uploads/photos/photo-1782965172042-616595513.png"
+                  }
+                },
+                {
+                  "user": {
+                    "id": "7cc66c11-2a7e-4b67-84a0-f9aeac0fcec3",
+                    "name": "Test",
+                    "photo_url": "http://localhost:3000/assets/uploads/photos/photo-1780548386232-346093944.png"
+                  }
+                }
+              ]
+            }
+          }
