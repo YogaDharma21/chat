@@ -1,0 +1,32 @@
+info:
+  name: Create Message
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/chat/rooms/messages"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: multipart-form
+    data:
+      - name: message
+        type: text
+        value: test
+      - name: room_id
+        type: text
+        value: 730d7c5c-faeb-4bbc-8d48-1da685082de0
+      - name: attach
+        type: file
+        value:
+          - C:\Users\YogaDharma\Pictures\Screenshots\Screenshot 2026-07-18 093449.png
+        contentType: image/png
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

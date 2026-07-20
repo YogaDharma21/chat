@@ -12,4 +12,7 @@ node_modules
 /public/assets/uploads/group_assets/*
 !/public/assets/uploads/group_assets/.gitkeep
 
+/public/assets/uploads/attach_messages/*
+!/public/assets/uploads/attach_messages/.gitkeep
+
 /Bruno/environments/env.yml

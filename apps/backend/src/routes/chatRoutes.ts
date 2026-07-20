@@ -1,8 +1,21 @@
 import express from "express";
 import * as chatController from "../controllers/chatController";
 import verifyToken from "../middlewares/verifyToken";
+import { storagePhotoAttach } from "../utils/multer";
+import multer from "multer";
 
 const chatRoutes = express.Router();
+
+const uploadAttach = multer({
+    storage: storagePhotoAttach,
+    // fileFilter(req, file, callback) {
+    //     if (file.mimetype.startsWith("image")) {
+    //         callback(null, true);
+    //     } else {
+    //         callback(null, false);
+    //     }
+    // },
+});
 
 chatRoutes.get("/chat/rooms", verifyToken, chatController.getRooms);
 
@@ -13,5 +26,12 @@ chatRoutes.get(
 );
 
 chatRoutes.post("/chat/rooms", verifyToken, chatController.createRoomPersonal);
+
+chatRoutes.post(
+    "/chat/rooms/messages",
+    verifyToken,
+    uploadAttach.single("attach"),
+    chatController.createMessage,
+);
 
 export default chatRoutes;
