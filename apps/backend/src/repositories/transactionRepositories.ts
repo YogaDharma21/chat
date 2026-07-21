@@ -44,5 +44,8 @@ export const getMyPayouts = async (user_id: string) => {
         where: {
             user_id,
         },
+        orderBy: {
+            created_at: "desc",
+        },
     });
 };
