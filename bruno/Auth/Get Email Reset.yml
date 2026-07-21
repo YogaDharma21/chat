@@ -8,7 +8,10 @@ http:
   url: "{{BACKEND_URL}}/api/auth/reset-password"
   body:
     type: json
-    data: '{"email":"test@test.test"}'
+    data: |-
+      {
+        "email": "test@test.test"
+      }
   auth: inherit
 
 settings:

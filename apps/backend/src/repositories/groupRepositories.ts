@@ -10,15 +10,15 @@ export const findGroupById = async (id: string) => {
         include: {
             room: {
                 select: {
-                    members:{
-                        include:{
-                            role:true
+                    members: {
+                        include: {
+                            role: true,
                         },
-                        where:{
-                            role:{
-                                role:"OWNER"
-                            }
-                        }
+                        where: {
+                            role: {
+                                role: "OWNER",
+                            },
+                        },
                     },
                 },
             },
@@ -281,17 +281,17 @@ export const addMemberToGroup = async (roomId: string, userId: string) => {
 };
 
 export const findAssetGroup = async (assetId: string) => {
-	return await prisma.groupAsset.findFirstOrThrow({
-		where: {
-			id: assetId,
-		},
-	});
+    return await prisma.groupAsset.findFirstOrThrow({
+        where: {
+            id: assetId,
+        },
+    });
 };
 
 export const deleteAssetGroup = async (assetId: string) => {
-	return await prisma.groupAsset.delete({
-		where: {
-			id: assetId,
-		},
-	});
+    return await prisma.groupAsset.delete({
+        where: {
+            id: assetId,
+        },
+    });
 };

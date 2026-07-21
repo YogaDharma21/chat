@@ -64,43 +64,81 @@ export const createTransaction = async (groupId: string, userId: string) => {
     return midtransJson;
 };
 
-
 export const updateTransaction = async (order_id: string, status: string) => {
-	switch (status) {
-		case "capture":
-		case "settlement": {
-			const transaction = await transactionRepositories.updateTransaction(
-				order_id,
-				"SUCCESS"
-			);
-			const group = await groupRepositories.findGroupById(
-				transaction.group_id
-			);
+    switch (status) {
+        case "capture":
+        case "settlement": {
+            const transaction = await transactionRepositories.updateTransaction(
+                order_id,
+                "SUCCESS",
+            );
+            const group = await groupRepositories.findGroupById(
+                transaction.group_id,
+            );
 
-			await groupRepositories.addMemberToGroup(
-				group.room_id,
-				transaction.user_id
-			);
+            await groupRepositories.addMemberToGroup(
+                group.room_id,
+                transaction.user_id,
+            );
 
-			return {
-                transaction_id: transaction.id
+            return {
+                transaction_id: transaction.id,
             };
-		}
+        }
 
-		case "deny":
-		case "expire":
-		case "failure": {
-			const transaction = await transactionRepositories.updateTransaction(
-				order_id,
-				"FAILED"
-			);
-			
-			return {
-                transaction_id: transaction.id
+        case "deny":
+        case "expire":
+        case "failure": {
+            const transaction = await transactionRepositories.updateTransaction(
+                order_id,
+                "FAILED",
+            );
+
+            return {
+                transaction_id: transaction.id,
             };
-		}
+        }
 
-		default:
-			return {};
-	}
+        default:
+            return {};
+    }
+};
+
+export const getRevenueStat = async (user_id: string) => {
+    const transaction = await transactionRepositories.getMyTransaction(user_id);
+    const payouts = await transactionRepositories.getMyPayouts(user_id);
+    const group = await groupRepositories.getMyOwnGroup(user_id);
+
+    const totalRevenue = transaction.reduce((acc, curr) => {
+        if (curr.type === "SUCCESS") {
+            return acc + curr.price;
+        }
+        return acc;
+    }, 0);
+
+    const totalPayouts = payouts.reduce((acc, curr) => acc + curr.amount, 0);
+    const balance = totalRevenue - totalPayouts;
+
+    const totalVipGroups = group.filter(
+        (group) => group.type === "PAID",
+    ).length;
+
+    const totalVipMembers = group.reduce((acc, curr) => {
+        if (curr.type === "PAID") {
+            return acc + (curr.room._count.members ?? 0);
+        }
+        return acc;
+    }, 0);
+
+    const latestMembersVip = transaction.filter(
+        (transaction) => transaction.type === "SUCCESS",
+    );
+
+    return {
+        balance,
+        total_vip_groups: totalVipGroups,
+        total_vip_members: totalVipMembers,
+        total_revenue: totalRevenue,
+        latest_members: latestMembersVip,
+    };
 };
