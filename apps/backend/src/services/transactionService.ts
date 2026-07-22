@@ -104,6 +104,21 @@ export const updateTransaction = async (order_id: string, status: string) => {
     }
 };
 
+export const getBalance = async (user_id: string) => {
+    const transaction = await transactionRepositories.getMyTransaction(user_id);
+    const payouts = await transactionRepositories.getMyPayouts(user_id);
+    const totalRevenue = transaction.reduce((acc, curr) => {
+        if (curr.type === "SUCCESS") {
+            return acc + curr.price;
+        }
+        return acc;
+    }, 0);
+
+    const totalPayouts = payouts.reduce((acc, curr) => acc + curr.amount, 0);
+
+    return totalRevenue - totalPayouts;
+};
+
 export const getRevenueStat = async (user_id: string) => {
     const transaction = await transactionRepositories.getMyTransaction(user_id);
     const payouts = await transactionRepositories.getMyPayouts(user_id);
