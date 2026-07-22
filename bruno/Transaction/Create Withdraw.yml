@@ -1,0 +1,83 @@
+info:
+  name: Create Withdraw
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{BACKEND_URL}}/api/payouts"
+  headers:
+    - name: Authorization
+      value: JWT {{JWT_TOKEN}}
+  body:
+    type: json
+    data: |-
+      {
+        "amount":5000,
+        "bank_name":"BCA",
+        "bank_account_number":123456,
+        "bank_account_name":"Yoga"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Create Withdraw Success
+    request:
+      url: "{{BACKEND_URL}}/api/payouts"
+      method: POST
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+      body:
+        type: json
+        data: |-
+          {
+            "amount":5000,
+            "bank_name":"BCA",
+            "bank_account_number":123456,
+            "bank_account_name":"Yoga"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "316"
+        - name: etag
+          value: W/"13c-hQnTPol2KKBFLPfU/rkze5vBXdA"
+        - name: date
+          value: Wed, 22 Jul 2026 00:53:01 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success create withdraw",
+            "data": {
+              "id": "97d730c6-4fda-416d-aace-c48f2dba5e5e",
+              "user_id": "7cc66c11-2a7e-4b67-84a0-f9aeac0fcec3",
+              "amount": 5000,
+              "bank_name": "BCA",
+              "bank_account_number": "123456",
+              "bank_account_name": "Yoga",
+              "status": "PENDING",
+              "proof": null,
+              "created_at": "2026-07-22T00:53:01.563Z"
+            }
+          }

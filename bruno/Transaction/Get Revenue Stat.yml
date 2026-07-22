@@ -16,3 +16,64 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: Get Revenue Stat Success
+    request:
+      url: "{{BACKEND_URL}}/api/revenue"
+      method: GET
+      headers:
+        - name: Authorization
+          value: JWT {{JWT_TOKEN}}
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: x-powered-by
+          value: Express
+        - name: access-control-allow-origin
+          value: "*"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "674"
+        - name: etag
+          value: W/"2a2-qajRNdhClgGDiL6bgGnKgU7y5+Y"
+        - name: date
+          value: Tue, 21 Jul 2026 23:53:56 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success get revenue stat",
+            "data": {
+              "balance": 30000,
+              "total_vip_groups": 1,
+              "total_vip_members": 2,
+              "total_revenue": 30000,
+              "latest_members": [
+                {
+                  "id": "6f95fe37-dd6a-488b-b5b8-4ba3255a408b",
+                  "owner_id": "7cc66c11-2a7e-4b67-84a0-f9aeac0fcec3",
+                  "user_id": "b4ab4f5c-aa2f-4828-9504-25abb7df5304",
+                  "group_id": "165f0977-8da5-4663-9967-d3b34493018c",
+                  "price": 30000,
+                  "type": "SUCCESS",
+                  "created_at": "2026-07-16T02:13:22.090Z",
+                  "user": {
+                    "name": "dimas",
+                    "photo_url": "http://localhost:3000/assets/uploads/photos/photo-1782965172042-616595513.png"
+                  },
+                  "group": {
+                    "name": "React JS Page edit",
+                    "photo_url": "http://localhost:3000/assets/uploads/groups/photo-1781251126651-634834531.png"
+                  }
+                }
+              ]
+            }
+          }
