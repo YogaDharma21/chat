@@ -1,139 +1,48 @@
-import React from "react";
-import { Link } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useMemo } from "react";
+import { Link, useNavigate } from "react-router";
+import { signInSchema, type signInValues } from "../utils/schema";
+import { useForm } from "react-hook-form";
+import CarouselImage from "../components/CarouselImage";
+import { useSignIn } from "../hooks/useSignIn";
+import { setAuthCookie } from "../utils/cookie";
+import { AxiosError } from "axios";
 
 export default function SignInPage() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<signInValues>({
+        resolver: zodResolver(signInSchema),
+    });
+
+    const { mutateAsync, isPending, isError, error } = useSignIn();
+    const navigate = useNavigate();
+
+    const onSubmit = async (data: signInValues) => {
+        try {
+            const response = await mutateAsync(data);
+            setAuthCookie(response.data);
+            navigate("/home/chat");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const errorMsg = useMemo(() => {
+        if (isError) {
+            if (error instanceof AxiosError) {
+                return error?.response?.data?.message;
+            }
+            return "An error occured";
+        }
+        return null;
+    }, [error, isError]);
+
     return (
         <div className="flex min-h-screen bg-[#EBEDF2]">
-            <section
-                id="ContainerBackgroundImages"
-                className="flex w-full max-w-[685px]"
-            >
-                <span className="fixed w-[685px] top-0 left-0 right-0 h-[160px] bg-[linear-gradient(0deg,rgba(235,237,242,0)_0%,#EBEDF2_100%)] z-10" />
-                <span className="fixed w-[685px] bottom-0 left-0 right-0 h-[160px] bg-[linear-gradient(0deg,#EBEDF2_0%,rgba(235,237,242,0)_100%)] z-10" />
-                <section
-                    id="BackgroundImages"
-                    className="fixed top-0 h-screen w-full max-w-[685px] overflow-hidden"
-                >
-                    <div className="flex justify-center gap-[10px]">
-                        <div className="flex flex-col w-[380px] gap-[10px]">
-                            <div className="slider w-[380px]">
-                                <div className="slide-top flex flex-col gap-[10px]">
-                                    <img
-                                        src="/assets/images/thumbnails/auth-1.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-2.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-3.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-1.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-2.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-3.png"
-                                        alt="image"
-                                    />
-                                </div>
-                            </div>
-                            <div className="slider w-[380px]">
-                                <div className="slide-top flex flex-col gap-[10px]">
-                                    <img
-                                        src="/assets/images/thumbnails/auth-1.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-2.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-3.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-1.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-2.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-3.png"
-                                        alt="image"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col w-[275px] gap-[10px]">
-                            <div className="slider w-[275px]">
-                                <div className="slide-bottom flex flex-col gap-[10px]">
-                                    <img
-                                        src="/assets/images/thumbnails/auth-4.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-5.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-6.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-4.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-5.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-6.png"
-                                        alt="image"
-                                    />
-                                </div>
-                            </div>
-                            <div className="slider w-[275px]">
-                                <div className="slide-bottom flex flex-col gap-[10px]">
-                                    <img
-                                        src="/assets/images/thumbnails/auth-4.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-5.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-6.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-4.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-5.png"
-                                        alt="image"
-                                    />
-                                    <img
-                                        src="/assets/images/thumbnails/auth-6.png"
-                                        alt="image"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </section>
+            <CarouselImage />
             <main
                 id="ContainerInputs"
                 className="flex items-center justify-end flex-1 pr-[calc(((100%-1280px)/2)+75px)] py-[60px]"
@@ -142,19 +51,21 @@ export default function SignInPage() {
                     id="BackgroundInputs"
                     className="fixed bg-white overflow-hidden rounded-l-[24px] top-0 right-0 bottom-0 left-[685px]"
                 >
-                    <span
-                        id="Error"
-                        className="flex items-center justify-center gap-[10px] absolute top-0 left-0 right-0 h-[56px] bg-heyhao-coral"
-                    >
-                        <p className="font-medium leading-[20px] text-white">
-                            Oops, wrong Email or Password. Try again!
-                        </p>
-                        <img
-                            src="/assets/images/icons/close-circle-white.svg"
-                            alt="icon"
-                            className="size-[24px] shrink-0"
-                        />
-                    </span>
+                    {isError && (
+                        <span
+                            id="Error"
+                            className="flex items-center justify-center gap-[10px] absolute top-0 left-0 right-0 h-[56px] bg-heyhao-coral"
+                        >
+                            <p className="font-medium leading-[20px] text-white">
+                                {errorMsg}
+                            </p>
+                            <img
+                                src="/assets/images/icons/close-circle-white.svg"
+                                alt="icon"
+                                className="size-[24px] shrink-0"
+                            />
+                        </span>
+                    )}
                 </section>
                 <section
                     id="ContentInputs"
@@ -168,7 +79,7 @@ export default function SignInPage() {
                         />
                     </section>
                     <form
-                        action="message-new-user.html"
+                        onSubmit={handleSubmit(onSubmit)}
                         className="flex flex-col gap-[40px]"
                     >
                         <div className="flex flex-col gap-[30px]">
@@ -176,7 +87,10 @@ export default function SignInPage() {
                                 <h1 className="font-semibold text-[24px] leading-[30px] text-center">
                                     Welcome Back🤞🏻
                                 </h1>
-                                <p className="font-medium leading-[20px] text-center text-heyhao-secondary">
+                                <p
+                                    className="font-medium leading-[20px]
+                                 text-center text-heyhao-secondary"
+                                >
                                     Hop into your account to continue!
                                 </p>
                             </header>
@@ -184,69 +98,85 @@ export default function SignInPage() {
                                 id="Inputs"
                                 className="flex flex-col gap-[30px]"
                             >
-                                <div id="Email" className="relative">
-                                    <div className="relative h-[72px] has-[:invalid]:border-heyhao-coral overflow-hidden rounded-[24px] border-[1.5px] border-heyhao-border py-[24px] focus-within:border-heyhao-blue transition-all duration-300">
-                                        <input
-                                            id="Email"
-                                            placeholder=""
-                                            type="email"
-                                            autoComplete="off"
-                                            className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] focus:outline-none pb-[16px] pl-[80px] pt-[36px] z-10"
-                                        />
-                                        <img
-                                            src="/assets/images/icons/sms-grey.svg"
-                                            alt="icon"
-                                            className="absolute left-[24px] top-1/2 size-[24px] shrink-0 -translate-y-1/2 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
-                                        />
-                                        <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
-                                        <label
-                                            htmlFor="Email"
-                                            className="absolute left-[80px] text-heyhao-secondary transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 text-sm leading-[17.5px] font-medium top-4 peer-focus:top-4 -translate-y-0 peer-focus:-translate-y-0 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
-                                        >
-                                            Email Address
-                                        </label>
+                                <div>
+                                    <div id="Email" className="relative">
+                                        <div className="relative h-[72px] has-[:invalid]:border-heyhao-coral overflow-hidden rounded-[24px] border-[1.5px] border-heyhao-border py-[24px] focus-within:border-heyhao-blue transition-all duration-300">
+                                            <input
+                                                {...register("email")}
+                                                id="Email"
+                                                placeholder=""
+                                                type="email"
+                                                autoComplete="off"
+                                                className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] focus:outline-none pb-[16px] pl-[80px] pt-[36px] z-10"
+                                            />
+                                            <img
+                                                src="/assets/images/icons/sms-grey.svg"
+                                                alt="icon"
+                                                className="absolute left-[24px] top-1/2 size-[24px] shrink-0 -translate-y-1/2 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
+                                            />
+                                            <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
+                                            <label
+                                                htmlFor="Email"
+                                                className="absolute left-[80px] text-heyhao-secondary transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 text-sm leading-[17.5px] font-medium top-4 peer-focus:top-4 -translate-y-0 peer-focus:-translate-y-0 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
+                                            >
+                                                Email Address
+                                            </label>
+                                        </div>
                                     </div>
+                                    {errors.email && (
+                                        <p className="text-red-500 text-xs font-medium">
+                                            {errors.email.message}
+                                        </p>
+                                    )}
                                 </div>
                                 <div
                                     id="Password-Container"
                                     className="flex flex-col gap-[12px]"
                                 >
-                                    <div className="relative h-[72px] has-[:invalid]:border-heyhao-coral overflow-hidden rounded-[24px] border-[1.5px] border-heyhao-border py-[24px] focus-within:border-heyhao-blue transition-all duration-300">
-                                        <button
-                                            type="button"
-                                            data-target="Password-Input"
-                                            className="show-password absolute right-[24px] transform -translate-y-1/2 top-1/2 z-30"
-                                        >
-                                            <img
-                                                src="/assets/images/icons/eye-grey.svg"
-                                                alt="Hide password icon"
-                                                className="show-icon size-[24px] shrink-0"
+                                    <div>
+                                        <div className="relative h-[72px] has-[:invalid]:border-heyhao-coral overflow-hidden rounded-[24px] border-[1.5px] border-heyhao-border py-[24px] focus-within:border-heyhao-blue transition-all duration-300">
+                                            <button
+                                                type="button"
+                                                data-target="Password-Input"
+                                                className="show-password absolute right-[24px] transform -translate-y-1/2 top-1/2 z-30"
+                                            >
+                                                <img
+                                                    src="/assets/images/icons/eye-grey.svg"
+                                                    alt="Hide password icon"
+                                                    className="show-icon size-[24px] shrink-0"
+                                                />
+                                                <img
+                                                    src="/assets/images/icons/eye-slash-black.svg"
+                                                    alt="Show password icon"
+                                                    className="hide-icon size-[24px] shrink-0 hidden"
+                                                />
+                                            </button>
+                                            <input
+                                                {...register("password")}
+                                                id="Password-Input"
+                                                placeholder=""
+                                                type="password"
+                                                autoComplete=""
+                                                className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
                                             />
+                                            <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
                                             <img
-                                                src="/assets/images/icons/eye-slash-black.svg"
-                                                alt="Show password icon"
-                                                className="hide-icon size-[24px] shrink-0 hidden"
+                                                src="/assets/images/icons/lock-grey.svg"
+                                                alt="Lock icon"
+                                                className="absolute left-[24px] top-1/2 size-[24px] shrink-0 -translate-y-1/2 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
                                             />
-                                        </button>
-                                        <input
-                                            id="Password-Input"
-                                            placeholder=""
-                                            type="password"
-                                            autoComplete=""
-                                            className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
-                                        />
-                                        <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
-                                        <img
-                                            src="/assets/images/icons/lock-grey.svg"
-                                            alt="Lock icon"
-                                            className="absolute left-[24px] top-1/2 size-[24px] shrink-0 -translate-y-1/2 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
-                                        />
-                                        <label
-                                            htmlFor="Password-Input"
-                                            className="absolute left-[80px] text-heyhao-secondary transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 text-sm leading-[17.5px] font-medium top-4 peer-focus:top-4 -translate-y-0 peer-focus:-translate-y-0 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
-                                        >
-                                            Password
-                                        </label>
+                                            <label
+                                                htmlFor="Password-Input"
+                                                className="absolute left-[80px] text-heyhao-secondary transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 text-sm leading-[17.5px] font-medium top-4 peer-focus:top-4 -translate-y-0 peer-focus:-translate-y-0 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
+                                            >
+                                                Password
+                                            </label>
+                                        </div>
+                                        {errors.password && (
+                                            <p className="text-red-500 text-xs font-medium">
+                                                {errors.password.message}
+                                            </p>
+                                        )}
                                     </div>
                                     <Link
                                         to="/forgot-password"
@@ -260,12 +190,13 @@ export default function SignInPage() {
                         <section id="Cta" className="flex flex-col gap-6">
                             <button
                                 type="submit"
+                                disabled={isPending}
                                 className="bg-heyhao-blue rounded-full py-4 text-white w-full font-bold leading-[20px]"
                             >
-                                Sign In Now
+                                {isPending ? "Loading..." : "Sign In Now"}
                             </button>
                             <p className="font-semibold leading-[20px] text-center">
-                                Don’t Have One?{" "}
+                                Don't Have One?{" "}
                                 <Link
                                     to="/sign-up"
                                     className="text-heyhao-blue hover:underline"
