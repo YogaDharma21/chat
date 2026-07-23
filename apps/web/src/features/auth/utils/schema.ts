@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const signUpSchema = z.object({
-    avatar: z.any().refine((file: File) => file?.type?.startsWith("image/"), {
+    photo: z.any().refine((file: File) => file?.type?.startsWith("image/"), {
         message: "File must be an image",
     }),
     name: z.string().min(3),

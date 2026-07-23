@@ -1,9 +1,12 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import CarouselImage from "../components/CarouselImage";
 import { useForm } from "react-hook-form";
 import { signUpSchema, type signUpValues } from "../utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSignUp } from "../hooks/useSignUp";
+import { AxiosError } from "axios";
+import { setAuthCookie } from "../utils/cookie";
 
 export default function SignUpPage() {
     const {
@@ -16,10 +19,34 @@ export default function SignUpPage() {
         resolver: zodResolver(signUpSchema),
     });
 
-    const avatar = watch("avatar");
+    const photo = watch("photo");
 
+    const { mutateAsync, isPending } = useSignUp();
+
+    const navigate = useNavigate();
     const onSubmit = async (data: signUpValues) => {
-        console.log(data);
+        try {
+            const formData = new FormData();
+
+            formData.append("name", data.name);
+            formData.append("email", data.email);
+            formData.append("password", data.password);
+            formData.append("photo", data.photo);
+
+            const response = await mutateAsync(formData);
+            setAuthCookie(response.data);
+            navigate("/sign-in");
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return alert(
+                    error?.response?.data?.message ?? "An error occured",
+                );
+            }
+
+            const err = error as Error;
+
+            alert(err?.message ?? "An error occured");
+        }
     };
 
     return (
@@ -63,10 +90,8 @@ export default function SignUpPage() {
                                         <img
                                             id="photo-container"
                                             src={
-                                                avatar instanceof File
-                                                    ? URL.createObjectURL(
-                                                          avatar,
-                                                      )
+                                                photo instanceof File
+                                                    ? URL.createObjectURL(photo)
                                                     : "/assets/images/photos/default.png"
                                             }
                                             alt="image"
@@ -74,7 +99,7 @@ export default function SignUpPage() {
                                         />
                                     </div>
                                     <input
-                                        {...register("avatar")}
+                                        {...register("photo")}
                                         id="file-input"
                                         name="test"
                                         type="file"
@@ -82,7 +107,7 @@ export default function SignUpPage() {
                                         onChange={(e) => {
                                             if (e.target.files) {
                                                 setValue(
-                                                    "avatar",
+                                                    "photo",
                                                     e.target.files[0],
                                                 );
                                             }
@@ -103,9 +128,9 @@ export default function SignUpPage() {
                                         </p>
                                     </button>
                                 </section>
-                                {errors.avatar && (
+                                {errors.photo && (
                                     <p className="text-red-500 text-xs font-medium mt-2 text-center">
-                                        {errors.avatar?.message?.toString()}
+                                        {errors.photo?.message?.toString()}
                                     </p>
                                 )}
                             </div>
@@ -252,9 +277,10 @@ export default function SignUpPage() {
                         <section id="Cta" className="flex flex-col gap-6">
                             <button
                                 type="submit"
+                                disabled={isPending}
                                 className="bg-heyhao-blue cursor-pointer rounded-full py-4 text-white w-full font-bold leading-[20px]"
                             >
-                                Create Account
+                                {isPending ? "Loading..." : "Create Account"}
                             </button>
                             <p className="font-semibold leading-[20px] text-center">
                                 Already Have Account?{" "}
