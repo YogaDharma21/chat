@@ -16,6 +16,8 @@ export default function SignUpPage() {
         resolver: zodResolver(signUpSchema),
     });
 
+    const avatar = watch("avatar");
+
     const onSubmit = async (data: signUpValues) => {
         console.log(data);
     };
@@ -60,9 +62,15 @@ export default function SignUpPage() {
                                     <div className="flex items-center justify-center rounded-full overflow-hidden size-[100px] shrink-0">
                                         <img
                                             id="photo-container"
-                                            src="/assets/images/photos/default.png"
+                                            src={
+                                                avatar instanceof File
+                                                    ? URL.createObjectURL(
+                                                          avatar,
+                                                      )
+                                                    : "/assets/images/photos/default.png"
+                                            }
                                             alt="image"
-                                            className="object-cover size-full"
+                                            className="object-cover size-full "
                                         />
                                     </div>
                                     <input
@@ -70,7 +78,15 @@ export default function SignUpPage() {
                                         id="file-input"
                                         name="test"
                                         type="file"
-                                        className="absolute opacity-0"
+                                        className="absolute opacity-0 "
+                                        onChange={(e) => {
+                                            if (e.target.files) {
+                                                setValue(
+                                                    "avatar",
+                                                    e.target.files[0],
+                                                );
+                                            }
+                                        }}
                                     />
                                     <button
                                         type="button"
