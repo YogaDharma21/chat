@@ -5,7 +5,7 @@ import SignInPage from "./features/auth/pages/SignInPage";
 import ForgotPassword from "./features/auth/pages/ForgotPasswordPage";
 import UpdatePasswordPage from "./features/auth/pages/UpdatePasswordPage";
 import LayoutPage from "./shared/components/LayoutPage";
-import DiscoverPage from "./features/'discover/pages/DiscoverPage";
+import DiscoverPage from "./features/discover/pages/DiscoverPage";
 
 const router = createBrowserRouter([
     {
