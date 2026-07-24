@@ -4,6 +4,8 @@ import SignUpPage from "./features/auth/pages/SignUpPage";
 import SignInPage from "./features/auth/pages/SignInPage";
 import ForgotPassword from "./features/auth/pages/ForgotPasswordPage";
 import UpdatePasswordPage from "./features/auth/pages/UpdatePasswordPage";
+import LayoutPage from "./shared/components/LayoutPage";
+import DiscoverPage from "./features/'discover/pages/DiscoverPage";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +27,17 @@ const router = createBrowserRouter([
     {
         path: "/reset-password/:token",
         element: <UpdatePasswordPage />,
-    }
+    },
+    {
+        path: "/home",
+        element: <LayoutPage />,
+        children: [
+            {
+                path: "/home/discover",
+                element: <DiscoverPage />,
+            },
+        ],
+    },
 ]);
 
 export default router;
