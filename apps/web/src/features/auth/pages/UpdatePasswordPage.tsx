@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CarouselImage from "../components/CarouselImage";
 import { useForm } from "react-hook-form";
 import {
@@ -13,6 +13,8 @@ import { AxiosError } from "axios";
 export default function UpdatePasswordPage() {
     const { token } = useParams();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -112,23 +114,24 @@ export default function UpdatePasswordPage() {
                                                 type="button"
                                                 data-target="Password-Input"
                                                 className="show-password absolute right-[24px] transform -translate-y-1/2 top-1/2 z-30"
+                                                onClick={() => setShowPassword((prev) => !prev)}
                                             >
                                                 <img
                                                     src="/assets/images/icons/eye-grey.svg"
                                                     alt="Hide password icon"
-                                                    className="show-icon size-[24px] shrink-0"
+                                                    className={`show-icon size-[24px] shrink-0 ${showPassword ? "hidden" : ""}`}
                                                 />
                                                 <img
                                                     src="/assets/images/icons/eye-slash-black.svg"
                                                     alt="Show password icon"
-                                                    className="hide-icon size-[24px] shrink-0 hidden"
+                                                    className={`hide-icon size-[24px] shrink-0 ${showPassword ? "" : "hidden"}`}
                                                 />
                                             </button>
                                             <input
                                                 {...register("password")}
                                                 id="Password-Input"
                                                 placeholder=""
-                                                type="password"
+                                                type={showPassword ? "text" : "password"}
                                                 className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
                                             />
                                             <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
@@ -161,23 +164,24 @@ export default function UpdatePasswordPage() {
                                                 type="button"
                                                 data-target="New-Password-Input"
                                                 className="show-password absolute right-[24px] transform -translate-y-1/2 top-1/2 z-30"
+                                                onClick={() => setShowConfirmPassword((prev) => !prev)}
                                             >
                                                 <img
                                                     src="/assets/images/icons/eye-grey.svg"
                                                     alt="Hide password icon"
-                                                    className="show-icon size-[24px] shrink-0"
+                                                    className={`show-icon size-[24px] shrink-0 ${showConfirmPassword ? "hidden" : ""}`}
                                                 />
                                                 <img
                                                     src="/assets/images/icons/eye-slash-black.svg"
                                                     alt="Show password icon"
-                                                    className="hide-icon size-[24px] shrink-0 hidden"
+                                                    className={`hide-icon size-[24px] shrink-0 ${showConfirmPassword ? "" : "hidden"}`}
                                                 />
                                             </button>
                                             <input
                                                 {...register("confirmPassword")}
                                                 id="New-Password-Input"
                                                 placeholder=""
-                                                type="password"
+                                                type={showConfirmPassword ? "text" : "password"}
                                                 className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
                                             />
                                             <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />
