@@ -83,7 +83,11 @@ export default function SignInPage() {
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="flex flex-col gap-[40px]"
+                        autoComplete="off"
                     >
+                        <div style={{ display: "none" }}>
+                            <input type="password" autoComplete="off" tabIndex={-1} />
+                        </div>
                         <div className="flex flex-col gap-[30px]">
                             <header className="flex flex-col gap-3">
                                 <h1 className="font-semibold text-[24px] leading-[30px] text-center">
@@ -108,7 +112,7 @@ export default function SignInPage() {
                                                 id="Email"
                                                 placeholder=""
                                                 type="email"
-                                                autoComplete="off"
+                                                autoComplete="new-password webauthn"
                                                 className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] focus:outline-none pb-[16px] pl-[80px] pt-[36px] z-10"
                                             />
                                             <img
@@ -159,7 +163,7 @@ export default function SignInPage() {
                                                 id="Password-Input"
                                                 placeholder=""
                                                 type={showPassword ? "text" : "password"}
-                                                autoComplete=""
+                                                autoComplete="new-password"
                                                 className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
                                             />
                                             <div className="w-[1.5px] h-6 bg-heyhao-border absolute left-[64px] peer-focus:z-30 z-30 peer-placeholder-shown:z-0" />

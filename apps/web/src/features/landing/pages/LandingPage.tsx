@@ -45,14 +45,14 @@ export default function LandingPage() {
                         </Link>
                     </li>
                 </ul>
-                <a
-                    href="/sign-in"
+                <Link
+                    to="/sign-in"
                     className="flex items-center justify-center gap-[10px] rounded-full h-[52px] px-8 py-4 bg-[#165DFF17]"
                 >
                     <span className="font-bold leading-5 text-heyhao-blue">
                         My Account
                     </span>
-                </a>
+                </Link>
             </nav>
             <header className="relative w-full max-w-[1280px] px-[52px] mx-auto">
                 <div className="flex flex-col rounded-t-[52px] h-[999px] bg-[linear-gradient(180deg,#F7F9FF_0%,rgba(247,249,255,0.01)_100%)]">
@@ -86,8 +86,8 @@ export default function LandingPage() {
                             </p>
                         </div>
                         <div className="flex items-center gap-4 justify-center">
-                            <a
-                                href="/sign-up"
+                            <Link
+                                to="/sign-up"
                                 className="flex items-center rounded-[50px] w-[200px] h-16 justify-center py-5 px-9 gap-[6px] bg-heyhao-blue"
                             >
                                 <span className="text-white font-bold leading-5">
@@ -98,7 +98,7 @@ export default function LandingPage() {
                                     className="flex shrink-0 size-6"
                                     alt="icon"
                                 />
-                            </a>
+                            </Link>
                             <a
                                 href="#Testimonials"
                                 className="flex items-center rounded-[50px] w-[200px] h-16 justify-center py-5 px-9 gap-[6px] bg-heyhao-blue/[9%]"
