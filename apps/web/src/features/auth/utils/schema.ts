@@ -18,6 +18,16 @@ export const forgotPasswordSchema = signUpSchema.pick({
     email: true,
 });
 
+export const updatePasswordSchema = z
+    .object({
+        password: z.string().min(8),
+        confirmPassword: z.string().min(8),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Password and Confirm Password must be same",
+    });
+
 export type signUpValues = z.infer<typeof signUpSchema>;
 export type signInValues = z.infer<typeof signInSchema>;
 export type forgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
+export type updatePasswordValues = z.infer<typeof updatePasswordSchema>;

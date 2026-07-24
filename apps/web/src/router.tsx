@@ -3,6 +3,7 @@ import LandingPage from "./features/landing/pages/LandingPage";
 import SignUpPage from "./features/auth/pages/SignUpPage";
 import SignInPage from "./features/auth/pages/SignInPage";
 import ForgotPassword from "./features/auth/pages/ForgotPasswordPage";
+import UpdatePasswordPage from "./features/auth/pages/UpdatePasswordPage";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         path: "/forgot-password",
         element: <ForgotPassword />,
     },
+    {
+        path: "/reset-password/:token",
+        element: <UpdatePasswordPage />,
+    }
 ]);
 
 export default router;
