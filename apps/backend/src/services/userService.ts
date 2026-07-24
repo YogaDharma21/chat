@@ -64,7 +64,7 @@ export const getEmailReset = async (email: string) => {
         from: "Chat App",
         to: email,
         subject: "Reset Password",
-        text: `Berikut link untuk reset password ${data.token}`,
+        text: `Berikut link untuk reset password ${process.env.RESET_PASSWORD_LINK}${data.token}`,
     });
 
     return true;

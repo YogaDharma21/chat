@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 import LandingPage from "./features/landing/pages/LandingPage";
 import SignUpPage from "./features/auth/pages/SignUpPage";
 import SignInPage from "./features/auth/pages/SignInPage";
-import ForgotPassword from "./features/auth/pages/ForgotPassword";
+import ForgotPassword from "./features/auth/pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
     {
