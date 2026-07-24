@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import GroupCard from "../components/GroupCard";
 import { useSearchParams } from "react-router";
+import { useDiscoverGroup } from "../hooks/useDiscoverGroup";
 
 export default function DiscoverPage() {
     const [tab, setTab] = useState<"GROUP" | "PEOPLE">("GROUP");
     const [searchParams] = useSearchParams();
     const query = searchParams.get("q");
+
+    const groups = useDiscoverGroup(tab === "GROUP", query ?? "");
     return (
         <main
             id="Main-Content-Container"

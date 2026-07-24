@@ -41,7 +41,6 @@ export default function SignInPage() {
         }
         return null;
     }, [error, isError]);
-
     return (
         <div className="flex min-h-screen bg-[#EBEDF2]">
             <CarouselImage />
@@ -86,7 +85,11 @@ export default function SignInPage() {
                         autoComplete="off"
                     >
                         <div style={{ display: "none" }}>
-                            <input type="password" autoComplete="off" tabIndex={-1} />
+                            <input
+                                type="password"
+                                autoComplete="off"
+                                tabIndex={-1}
+                            />
                         </div>
                         <div className="flex flex-col gap-[30px]">
                             <header className="flex flex-col gap-3">
@@ -145,7 +148,11 @@ export default function SignInPage() {
                                                 type="button"
                                                 data-target="Password-Input"
                                                 className="show-password absolute right-[24px] transform -translate-y-1/2 top-1/2 z-30"
-                                                onClick={() => setShowPassword((prev) => !prev)}
+                                                onClick={() =>
+                                                    setShowPassword(
+                                                        (prev) => !prev,
+                                                    )
+                                                }
                                             >
                                                 <img
                                                     src="/assets/images/icons/eye-grey.svg"
@@ -162,7 +169,11 @@ export default function SignInPage() {
                                                 {...register("password")}
                                                 id="Password-Input"
                                                 placeholder=""
-                                                type={showPassword ? "text" : "password"}
+                                                type={
+                                                    showPassword
+                                                        ? "text"
+                                                        : "password"
+                                                }
                                                 autoComplete="new-password"
                                                 className="peer absolute bottom-0 left-0 right-0 top-0 w-full h-full bg-transparent font-semibold leading-[20px] tracking-[0.2em] focus:outline-none pb-[16px] px-[80px] pt-[36px] z-10"
                                             />
