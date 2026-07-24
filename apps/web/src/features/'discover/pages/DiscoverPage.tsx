@@ -141,7 +141,7 @@ export default function DiscoverPage() {
                 {query !== null ? (
                     <header className="flex items-center justify-between relative z-30">
                         <h1 className="font-bold text-[42px] leading-[52.5px]">
-                            Search Result: {query}a
+                            Search Result: {query}
                         </h1>
                         <div
                             id="TabButtons"
