@@ -24,6 +24,7 @@ export const updatePasswordSchema = z
         confirmPassword: z.string().min(8),
     })
     .refine((data) => data.password === data.confirmPassword, {
+        path: ["confirmPassword"],
         message: "Password and Confirm Password must be same",
     });
 

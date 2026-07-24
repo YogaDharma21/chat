@@ -187,7 +187,7 @@ export default function UpdatePasswordPage() {
                                                 className="absolute left-[24px] top-1/2 size-[24px] shrink-0 -translate-y-1/2 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
                                             />
                                             <label
-                                                htmlFor="New-Password-Inpu"
+                                                htmlFor="New-Password-Input"
                                                 className="absolute left-[80px] text-heyhao-secondary transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 text-sm leading-[17.5px] font-medium top-4 peer-focus:top-4 -translate-y-0 peer-focus:-translate-y-0 peer-focus:z-30 z-30 peer-placeholder-shown:z-0"
                                             >
                                                 Confirm New Password
